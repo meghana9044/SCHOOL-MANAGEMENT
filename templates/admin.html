@@ -21,7 +21,8 @@
         <h2>Admin Dashboard</h2>
 
         <h3>Create New Student</h3>
-        <form method="POST" action="{{ url_for('admin_dashboard') }}" name="student_form">
+        <form method="POST" action="{{ url_for('admin_dashboard') }}">
+            <input type="hidden" name="form_name" value="student_form">
             <input type="text" name="name" placeholder="Name" required><br>
             <input type="text" name="student_id" placeholder="Student ID" required><br>
             <input type="text" name="courses" placeholder="Courses" required><br>
@@ -31,8 +32,9 @@
         </form>
         
         <h3>Create New Course</h3>
-        <form method="POST" action="{{ url_for('admin_dashboard')}}" name="course_form">
-            <input type="text" name="Course_name" placeholder="Course Name" required><br>
+        <form method="POST" action="{{ url_for('admin_dashboard')}}">
+            <input type="hidden" name="form_name" value="course_form">
+            <input type="text" name="title" placeholder="Title" required><br>
             <textarea name="description" placeholder="Description" required></textarea><br>
             <input type="date" name="start_date" placeholder="Start-Date" required><br>
             <input type="date" name="end_date" placeholder="End-Date" required><br>

@@ -1,6 +1,9 @@
-import datetime
+from datetime import datetime 
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
+
+curr=datetime.utcnow()
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -20,7 +23,7 @@ class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(100), nullable=False)
     student_id = db.Column(db.String(50), nullable=False, unique=True)
-    courses = db.Column(db.Text, nullable=False)
+    # courses = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('student'), foreign_keys=[user_id])
     created_by = db.Column(db.String(100),nullable = True)
@@ -37,14 +40,12 @@ class Course(db.Model):
     description = db.Column(db.Text, nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)  
-    # student_id=db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)  
-    # std=db.relationship('Student', backref=db.backref('course'), foreign_keys=[student_id])
-
+   
 class Enrollment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
-    enrollment_date = db.Column(db.Date, nullable=False)
+    enrollment_date = db.Column(db.Date, nullable=False, default=curr)
 
     student = db.relationship('Student', backref=db.backref('enrollments', lazy=True))
     course = db.relationship('Course', backref=db.backref('enrollments', lazy=True))

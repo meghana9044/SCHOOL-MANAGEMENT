@@ -94,9 +94,10 @@ def signup():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_dashboard():
+    print(request.form)
     if 'user_id' in session and session['role'] == 'admin':
         if request.method == 'POST':
-            if 'student_form' in request.form:
+            if 'student_form' == request.form.get('form_name'):
                 # Handle student creation
                 name = request.form['name']
                 student_id = request.form['student_id']
@@ -113,7 +114,7 @@ def admin_dashboard():
                 db.session.add(new_student)
                 db.session.commit()
                 flash("Student added successfully")
-            elif 'course_form' in request.form:
+            elif 'course_form' == request.form.get('form_name'):
                 # Handle course creation
                 title = request.form['title']
                 description = request.form['description']
@@ -167,18 +168,12 @@ def student_dashboard():
         return render_template('student.html', student=student, courses=courses)
     return redirect(url_for('login'))
 
-@app.route('/student/courses')
-def student_courses():
-    if 'user_id' in session and session['role'] == 'student':
-        courses = Course.query.all()
-        return render_template('course_list.html', courses=courses)
-    return redirect(url_for('login'))
-
 @app.route('/enroll/<int:course_id>', methods=['GET', 'POST'])
 def enroll(course_id):
     if 'user_id' in session and session['role'] == 'student':
-        student_id = session['user_id']
-        enrollment = Enrollment(student_id=student_id, course_id=course_id)
+        user_id = session['user_id']
+        student = Student.query.filter_by(user_id=user_id).first()
+        enrollment = Enrollment(student_id=student.id, course_id=course_id)
         db.session.add(enrollment)
         db.session.commit()
         flash("Enrolled successfully")
@@ -190,7 +185,7 @@ def course_list():
     courses = Course.query.all()
     return render_template('course_list.html', courses=courses)
 
-@app.route('/course/new', methods=['GET', 'POST'])
+@app.route('/courses/new', methods=['GET', 'POST'])
 def new_course():
     if request.method == 'POST':
         title = request.form['title']

@@ -152,6 +152,9 @@
             {% for course in courses %}
                 <li class="list-group-item">
                     {{ course.title }}
+                    {{ course.description }}
+                    {{ course.start_date }}
+                    {{ course.end_date }}
                     <span>
                         <a href="{{ url_for('enroll', course_id=course.id) }}" class="btn-sm">Enroll</a>
                     </span>

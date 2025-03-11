@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+{#<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Student Dashboard</title>
@@ -14,7 +14,7 @@
         <a href="{{ url_for('logout') }}">Logout</a>
     </div>
 </body>
-</html> -->
+</html> -->#}
 
 <!DOCTYPE html>
 <html>
@@ -30,21 +30,21 @@
         <p>Username: {{ student.user.username }}</p>
         
         <h3>Your Enrolled Courses</h3>
-        <ul>
+        <ol>
             {% for enrollment in student.enrollments %}
                 <li>{{ enrollment.course.title }}</li>
             {% endfor %}
-        </ul>
+        </ol>
         
         <a href="{{ url_for('course_list')}}">Available Courses</a>
-        <ul>
-            {% for course in courses %}
-                <li>
-                    {{ course.title }}
-                    <a href="{{ url_for('enroll', course_id=course.id) }}" class="btn-sm">Enroll</a>
-                </li>
-            {% endfor %}
-        </ul>
+    {#<!--<ul>
+        {% for course in courses %}
+            <li>
+                {{ course.title }}
+                <a href="{{ url_for('enroll', course_id=course.id) }}" class="btn-sm">Enroll</a>
+            </li>
+        {% endfor %}
+    </ul>-->#}
         <a href="{{ url_for('logout') }}">Logout</a>
     </div>
 </body>
