@@ -1,0 +1,52 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Sign Up</title>
+     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='CSS/signup.css') }}">
+     <script>
+         function validateForm() {
+             const name = document.forms["signupForm"]["name"].value;
+             const email = document.forms["signupForm"]["email"].value;
+             const username = document.forms["signupForm"]["username"].value;
+             const password = document.forms["signupForm"]["password"].value;
+             const role = document.forms["signupForm"]["role"].value;
+ 
+             if (name="" || email == "" || username == "" || password == "") {
+                 alert("All fields must be filled out");
+                 return false;
+             }
+ 
+             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+             if (!emailPattern.test(email)) {
+                 alert("Please enter a valid email address");
+                 return false;
+             }
+ 
+             if (password.length < 5) {
+                 alert("Password must be at least 5 characters long");
+                 return false;
+             }
+ 
+             return true;
+         }
+     </script>
+ </head>
+ <body>
+    {%include 'toast.html' %}
+     <div class="container">
+         <h2>Sign Up</h2>
+         <form name="signupForm" method="POST" onsubmit="return validateForm()">
+             <input type="text" name="name" placeholder="Name" required><br>
+             <input type="email" name="email" placeholder="Email" required><br>
+             <input type="text" name="username" placeholder="Username" required><br>
+             <input type="password" name="password" placeholder="Password" required><br>
+             <input type="text" name="role" placeholder="Role" required><br>
+             <button type="submit">Sign Up</button>
+         </form>
+         <a href="{{ url_for('login') }}">Login</a>
+     </div>
+ </body>
+ </html>
+ 

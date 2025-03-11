@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='CSS/admin_edit.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Student</h2>
+        <form method="POST" action="{{ url_for('edit_student', id=student.id) }}">
+            <input type="text" name="name" value="{{ student.name }}" placeholder="Student Name"><br>
+            <input type="text" name="student_id" value="{{ student.student_id }}" placeholder="Student ID" required><br>
+            <input type="text" name="courses" value="{{ student.courses }}" placeholder="Courses" required><br>
+            <button type="submit">Update Student</button>
+        </form>
+        <a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

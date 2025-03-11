@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>{% block title %}{% endblock %}</title> -->
+    <style>
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color:#fff;
+            color: #333;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            right: 30px;
+            top: 30px;
+            font-size: 17px;
+        }
+
+        .toast.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 3s 2.5s;
+            animation: fadein 0.5s, fadeout 3s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {top: 0; opacity: 0;}
+            to {top: 30px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+            from {top: 0; opacity: 0;}
+            to {top: 30px; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+            from {top: 30px; opacity: 1;}
+            to {top: 0; opacity: 0;}
+        }
+
+        @keyframes fadeout {
+            from {top: 30px; opacity: 1;}
+            to {top: 0; opacity: 0;}
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toastElement = document.getElementById('toast');
+            const flashMessages = document.querySelector('.flash-messages');
+            
+            if (flashMessages && flashMessages.innerHTML.trim() !== '') {
+                toastElement.classList.add('show');
+                setTimeout(function() {
+                    toastElement.classList.remove('show');
+                }, 3000);
+            } else {
+                toastElement.style.display = 'none';
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="toast" class="toast">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for message in messages %}
+                {{message}}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

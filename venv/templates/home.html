@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Management Portal</title>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='CSS/home.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to the School Management Portal</h1>
+    </div>
+    <div class="container">
+        <div class="nav">
+            <a href="{{ url_for('about') }}">About Us</a>
+            <a href="{{ url_for('course_list') }}">Courses</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('signup') }}">Sign Up</a>
+        </div>
+        <div class="content">
+            <p>This portal helps manage student information, courses, and more. Please use the navigation links above to explore the portal.</p>
+            <img src="/static/IMG/school-building-1.jpg" alt="School Image">
+           
+        </div>
+        <div class="features">
+            <div class="feature">
+                <h3>Student Management</h3>
+                <p>Manage student records, track progress, and ensure accurate information.</p>
+            </div>
+            <div class="feature">
+                <h3>Course Management</h3>
+                <p>Organize courses, assign teachers, and monitor student enrollment.</p>
+            </div>
+            <div class="feature">
+                <h3>Communication</h3>
+                <p>Facilitate communication between teachers, students, and parents.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
